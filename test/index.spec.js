@@ -1,6 +1,5 @@
 const path = require('path');
 const childProcess = require('child_process');
-// const server = require('http-server');
 
 const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

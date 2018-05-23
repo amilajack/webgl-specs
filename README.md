@@ -16,9 +16,9 @@ This is useful when you want to render lower quality graphics for low powered de
 ## Usage
 If you have a module loader (webpack or rollup)
 ```js
-import WebGLSpecs from 'webgl-specs';
+import WebglSpecs from 'webgl-specs';
 
-const report = WebGLSpecs();
+const report = WebglSpecs();
 report.unMaskedRenderer // "Intel Iris OpenGL Engine"
 report.unMaskedVendor // "Intel Inc."
 report.glVersion // "WebGL 1.0 (OpenGL ES 2.0 Chromium)"
@@ -31,7 +31,7 @@ If you're not:
   <script type="module">
     import WebglSpecs from 'https://unpkg.com/webgl-specs@latest/index.js';
 
-    const report = WebGLSpecs();
+    const report = WebglSpecs();
     report.unMaskedRenderer // "Intel Iris OpenGL Engine"
     report.unMaskedVendor // "Intel Inc."
     report.glVersion // "WebGL 1.0 (OpenGL ES 2.0 Chromium)"
