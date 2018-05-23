@@ -1,7 +1,6 @@
 $(() => {
   const webglVersion = window.location.search.indexOf('v=2') > 0 ? 2 : 1;
 
-  const template = _.template($('#reportTemplate').html());
   let report = {
     platform: navigator.platform,
     userAgent: navigator.userAgent,
@@ -15,8 +14,6 @@ $(() => {
   if ((webglVersion === 2 && !window.WebGL2RenderingContext) ||
         (webglVersion === 1 && !window.WebGLRenderingContext)) {
     // The browser does not support WebGL
-    $('#output').addClass('warn');
-    renderReport($('#webglNotSupportedTemplate').html());
     return;
   }
 
@@ -31,8 +28,6 @@ $(() => {
 
   if (!gl) {
     // The browser supports WebGL, but initialization failed
-    $('#output').addClass('warn');
-    renderReport($('#webglNotEnabledTemplate').html());
     return;
   }
 
@@ -48,20 +43,6 @@ $(() => {
     extension = extension.replace(/_EXT_/, '_');
 
     return `https://www.khronos.org/registry/webgl/extensions/${extension}`;
-  }
-
-  function renderReport(header) {
-    const tabsTemplate = _.template($('#webglVersionTabs').html());
-    const headerTemplate = _.template(header);
-    $('#output').html(tabsTemplate({
-      report
-    }) + headerTemplate({
-      report
-    }) + template({
-      report,
-      getExtensionUrl,
-      getWebGL2ExtensionUrl
-    }));
   }
 
   function describeRange(value) {
@@ -383,7 +364,7 @@ $(() => {
 
   const webgl2Status = getWebGL2Status(gl, contextName);
 
-  report = _.extend(report, {
+  report = Object.assign(report, {
     contextName,
     glVersion: gl.getParameter(gl.VERSION),
     shadingLanguageVersion: gl.getParameter(gl.SHADING_LANGUAGE_VERSION),
@@ -427,7 +408,7 @@ $(() => {
   });
 
   if (webglVersion > 1) {
-    report = _.extend(report, {
+    report = Object.assign(report, {
       maxVertexUniformComponents: showNull(gl.getParameter(gl.MAX_VERTEX_UNIFORM_COMPONENTS)),
       maxVertexUniformBlocks: showNull(gl.getParameter(gl.MAX_VERTEX_UNIFORM_BLOCKS)),
       maxVertexOutputComponents: showNull(gl.getParameter(gl.MAX_VERTEX_OUTPUT_COMPONENTS)),
@@ -457,187 +438,6 @@ $(() => {
     });
   }
 
-  if (window.externalHost) {
-    // Tab is running with Chrome Frame
-    renderReport($('#webglSupportedChromeFrameTemplate').html());
-  } else {
-    renderReport($('#webglSupportedTemplate').html());
-  }
-
-  const pipeline = $('.pipeline');
-  const background = $('.background')[0];
-
   background.width = pipeline.width();
   background.height = pipeline.height();
-
-  const hasVertexTextureUnits = gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS) > 0;
-
-  const context = background.getContext('2d');
-  context.shadowOffsetX = 3;
-  context.shadowOffsetY = 3;
-  context.shadowBlur = 7;
-  context.shadowColor = 'rgba(0, 0, 0, 0.5)';
-  context.strokeStyle = 'black';
-
-  const boxPadding = 4;
-
-  function drawBox(element, fill) {
-    const pos = element.position();
-    const x = pos.left - boxPadding;
-    const y = pos.top - boxPadding;
-    const width = element.outerWidth() + (boxPadding * 2);
-    const height = element.outerHeight() + (boxPadding * 2);
-    const radius = 10;
-
-    context.fillStyle = fill;
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(x + radius, y);
-    context.lineTo(x + width - radius, y);
-    context.quadraticCurveTo(x + width, y, x + width, y + radius);
-    context.lineTo(x + width, y + height - radius);
-    context.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-    context.lineTo(x + radius, y + height);
-    context.quadraticCurveTo(x, y + height, x, y + height - radius);
-    context.lineTo(x, y + radius);
-    context.quadraticCurveTo(x, y, x + radius, y);
-    context.closePath();
-    context.stroke();
-    context.fill();
-
-    return {
-      x, y, width, height
-    };
-  }
-
-  function drawLeftHead(x, y) {
-    context.beginPath();
-    context.moveTo(x + 5, y + 15);
-    context.lineTo(x - 10, y);
-    context.lineTo(x + 5, y - 15);
-    context.quadraticCurveTo(x, y, x + 5, y + 15);
-    context.fill();
-  }
-
-  function drawRightHead(x, y) {
-    context.beginPath();
-    context.moveTo(x - 5, y + 15);
-    context.lineTo(x + 10, y);
-    context.lineTo(x - 5, y - 15);
-    context.quadraticCurveTo(x, y, x - 5, y + 15);
-    context.fill();
-  }
-
-  function drawDownHead(x, y) {
-    context.beginPath();
-    context.moveTo(x + 15, y - 5);
-    context.lineTo(x, y + 10);
-    context.lineTo(x - 15, y - 5);
-    context.quadraticCurveTo(x, y, x + 15, y - 5);
-    context.fill();
-  }
-
-  function drawDownArrow(topBox, bottomBox) {
-    context.beginPath();
-
-    const arrowTopX = topBox.x + topBox.width / 2;
-    const arrowTopY = topBox.y + topBox.height;
-    const arrowBottomX = bottomBox.x + bottomBox.width / 2;
-    const arrowBottomY = bottomBox.y - 15;
-    context.moveTo(arrowTopX, arrowTopY);
-    context.lineTo(arrowBottomX, arrowBottomY);
-    context.stroke();
-
-    drawDownHead(arrowBottomX, arrowBottomY);
-  }
-
-  function drawRightArrow(leftBox, rightBox, factor) {
-    context.beginPath();
-
-    const arrowLeftX = leftBox.x + leftBox.width;
-    const arrowRightX = rightBox.x - 15;
-    const arrowRightY = rightBox.y + rightBox.height * factor;
-    context.moveTo(arrowLeftX, arrowRightY);
-    context.lineTo(arrowRightX, arrowRightY);
-    context.stroke();
-
-    drawRightHead(arrowRightX, arrowRightY);
-  }
-
-  const webgl2color = (webglVersion > 1) ? '#02AFCF' : '#aaa';
-
-  const vertexShaderBox = drawBox($('.vertexShader'), '#ff6700');
-  const transformFeedbackBox = drawBox($('.transformFeedback'), webgl2color);
-  const rasterizerBox = drawBox($('.rasterizer'), '#3130cb');
-  const fragmentShaderBox = drawBox($('.fragmentShader'), '#ff6700');
-  const framebufferBox = drawBox($('.framebuffer'), '#7c177e');
-  const texturesBox = drawBox($('.textures'), '#3130cb');
-  const uniformBuffersBox = drawBox($('.uniformBuffers'), webgl2color);
-
-  const arrowRightX = texturesBox.x;
-  const arrowRightY = texturesBox.y + (texturesBox.height / 2);
-  const arrowMidX = (texturesBox.x + vertexShaderBox.x + vertexShaderBox.width) / 2;
-  const arrowMidY = arrowRightY;
-  const arrowTopMidY = texturesBox.y - 15;
-  const arrowBottomMidY = fragmentShaderBox.y + (fragmentShaderBox.height * 0.55);
-  const arrowTopLeftX = vertexShaderBox.x + vertexShaderBox.width + 15;
-  const arrowTopLeftY = arrowTopMidY;
-  const arrowBottomLeftX = fragmentShaderBox.x + fragmentShaderBox.width + 15;
-  const arrowBottomLeftY = arrowBottomMidY;
-
-  if (hasVertexTextureUnits) {
-    context.fillStyle = context.strokeStyle = 'black';
-    context.lineWidth = 10;
-  } else {
-    context.fillStyle = context.strokeStyle = '#FFF';
-    context.shadowColor = '#000';
-    context.shadowOffsetX = context.shadowOffsetY = 0;
-    context.lineWidth = 8;
-  }
-
-  context.beginPath();
-  context.moveTo(arrowMidX, arrowMidY);
-  context.lineTo(arrowMidX, arrowTopMidY);
-  if (hasVertexTextureUnits) {
-    context.lineTo(arrowTopLeftX, arrowTopMidY);
-    context.stroke();
-    drawLeftHead(arrowTopLeftX, arrowTopLeftY);
-  } else {
-    context.stroke();
-    context.shadowColor = '#000';
-    context.font = 'bold 14pt arial, Sans-Serif';
-    context.fillText('No vertex textures available.', arrowMidX - 8, arrowTopMidY - 8);
-  }
-
-  context.lineWidth = 10;
-  context.fillStyle = context.strokeStyle = 'black';
-  context.shadowColor = 'rgba(0, 0, 0, 0.5)';
-  context.shadowOffsetX = context.shadowOffsetY = 3;
-  context.beginPath();
-
-  context.moveTo(arrowRightX, arrowRightY);
-
-  context.lineTo(arrowMidX - context.lineWidth * 0.5, arrowMidY);
-  context.moveTo(arrowMidX, arrowMidY);
-  context.lineTo(arrowMidX, arrowBottomMidY);
-  context.lineTo(arrowBottomLeftX, arrowBottomLeftY);
-
-  const uniformBuffersMidY = uniformBuffersBox.y + uniformBuffersBox.height / 2;
-  context.moveTo(arrowMidX, uniformBuffersMidY);
-  context.lineTo(arrowRightX, uniformBuffersMidY);
-
-  context.stroke();
-
-  drawLeftHead(arrowBottomLeftX, arrowBottomLeftY);
-
-  drawRightArrow(vertexShaderBox, transformFeedbackBox, 0.5);
-  drawDownArrow(vertexShaderBox, rasterizerBox);
-  drawDownArrow(rasterizerBox, fragmentShaderBox);
-  if (webglVersion === 1) {
-    drawDownArrow(fragmentShaderBox, framebufferBox);
-  } else {
-    drawRightArrow(fragmentShaderBox, framebufferBox, 0.7);
-  }
-
-  window.gl = gl;
 });
