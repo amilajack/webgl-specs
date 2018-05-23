@@ -1,6 +1,7 @@
 {
   "name": "webgl-specs",
   "version": "0.0.0",
+  "description": " Detect the graphics specs of a device using web APIs",
   "main": "index.js",
   "repository": "git@github.com:amilajack/webgl-specs.git",
   "author": "Amila Welihinda <amilajack@gmail.com>",

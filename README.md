@@ -1,7 +1,6 @@
 webgl-specs
 ==============
-
-Detect the specs of a device
+Detect the graphics specs of a device using web APIs
 
 ## Install
 ```bash
@@ -10,6 +9,9 @@ yarn add webgl-specs
 # NPM
 npm install webgl-specs
 ```
+
+## Why?
+This is useful when you want to render lower quality graphics for low powered devices
 
 ## Usage
 If you have a module loader (webpack or rollup)
