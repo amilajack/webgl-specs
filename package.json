@@ -14,7 +14,11 @@
     "babel-preset-env": "^1.7.0",
     "http-server": "^0.11.1",
     "jest": "^22.4.4",
-    "puppeteer": "^1.4.0"
+    "parcel": "^1.8.1",
+    "puppeteer": "^1.4.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-json-inspector": "^7.1.1"
   },
   "scripts": {
     "build": "babel -d lib index.js",
