@@ -11,11 +11,13 @@ describe('WebglSpecs', () => {
   beforeAll(async () => {
     page = await global.__BROWSER__.newPage();
     page.on('console', (item) => {
-      logs.push(item);
+      logs.push(JSON.parse(item._text));
     });
-    childProcess.exec(path.join(__dirname, '..', 'node_modules', '.bin', 'http-server'));
-    await timeout(2000);
-    await page.goto(`http://localhost:8080/test')}`);
+    childProcess.exec(path.join(__dirname, '..', 'node_modules', '.bin', 'http-server'), {
+      cwd: path.join(__dirname, '..')
+    });
+    await timeout(3000);
+    await page.goto('http://127.0.0.1:8080/test');
   });
 
   it('should load without error', async () => {

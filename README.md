@@ -43,7 +43,7 @@ If you're not:
 ## Testing
 ```bash
 yarn dev
-# Then open http://127.0.0.1:8080
+# Then open http://127.0.0.1:8080/test
 ```
 
 ## Prior Art
