@@ -1,6 +1,10 @@
 const path = require('path');
+const childProcess = require('child_process');
+// const server = require('http-server');
 
-describe('WebglHardware', () => {
+const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+describe('WebglSpecs', () => {
   let page;
   let logs = [];
 
@@ -9,7 +13,9 @@ describe('WebglHardware', () => {
     page.on('console', (item) => {
       logs.push(item);
     });
-    await page.goto(`file:${path.join(__dirname, 'index.html')}`);
+    childProcess.exec(path.join(__dirname, '..', 'node_modules', '.bin', 'http-server'));
+    await timeout(2000);
+    await page.goto(`http://localhost:8080/test')}`);
   });
 
   it('should load without error', async () => {

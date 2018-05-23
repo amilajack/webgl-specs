@@ -1,4 +1,4 @@
-webgl-hardware
+webgl-specs
 ==============
 
 Detect the specs of a device
@@ -6,17 +6,17 @@ Detect the specs of a device
 ## Install
 ```bash
 # Yarn
-yarn add webgl-hardware
+yarn add webgl-specs
 # NPM
-npm install webgl-hardware
+npm install webgl-specs
 ```
 
 ## Usage
 If you have a module loader (webpack or rollup)
 ```js
-import WebGLHardware from 'webgl-hardware';
+import WebGLSpecs from 'webgl-specs';
 
-const report = WebGLHardware();
+const report = WebGLSpecs();
 report.unMaskedRenderer // "Intel Iris OpenGL Engine"
 report.unMaskedVendor // "Intel Inc."
 report.glVersion // "WebGL 1.0 (OpenGL ES 2.0 Chromium)"
@@ -27,9 +27,9 @@ If you're not:
 <html>
 <body>
   <script type="module">
-    import WebglHardware from 'https://unpkg.com/webgl-hardware@latest/index.js';
+    import WebglSpecs from 'https://unpkg.com/webgl-specs@latest/index.js';
 
-    const report = WebGLHardware();
+    const report = WebGLSpecs();
     report.unMaskedRenderer // "Intel Iris OpenGL Engine"
     report.unMaskedVendor // "Intel Inc."
     report.glVersion // "WebGL 1.0 (OpenGL ES 2.0 Chromium)"

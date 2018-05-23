@@ -1,4 +1,4 @@
-export default function WebglHardware() {
+export default function WebglSpecs() {
   function createCanvas() {
     const canvas = document.createElement('canvas');
     canvas.setAttribute('width', '1');
