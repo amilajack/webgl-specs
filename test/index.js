@@ -14,20 +14,10 @@ const path = require('path');
   await page.goto('https://example.com');
 
   await page.addScriptTag({
-    path: path.join(__dirname, '..', 'index.js')
-  })
-
-  // Get the "viewport" of the page, as reported by the page.
-  const dimensions = await page.evaluate(() => {
-    return WebglHardware()
-    // return {
-    //   width: WebglHardware(),
-    //   // height: document.documentElement.clientHeight,
-    //   // deviceScaleFactor: window.devicePixelRatio
-    // };
+    path: path.join(__dirname, '..', 'lib', 'index.js')
   });
 
-  console.log('Dimensions:', dimensions);
+  console.log(await page.evaluate(() => WebglHardware()));
 
   await browser.close();
 })();
