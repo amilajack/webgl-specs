@@ -18,6 +18,7 @@
   },
   "scripts": {
     "build": "babel -d lib index.js",
+    "dev": "http-server .",
     "test": "jest"
   }
 }

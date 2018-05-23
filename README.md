@@ -1,5 +1,5 @@
 webgl-specs
-==============
+===========
 Detect the graphics specs of a device using web APIs
 
 ## Install
@@ -38,6 +38,12 @@ If you're not:
   </script>
 </body>
 </html>
+```
+
+## Testing
+```bash
+yarn dev
+# Then open http://127.0.0.1:8080
 ```
 
 ## Prior Art
