@@ -1,14 +1,13 @@
 {
   "name": "webgl-hardware",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "index.js",
   "repository": "git@github.com:amilajack/webgl-hardware.git",
   "author": "Amila Welihinda <amilajack@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "lodash": "^4.17.10"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "spectron": "^3.8.0"
+    "jest": "^22.4.4",
+    "puppeteer": "^1.4.0"
   }
 }
