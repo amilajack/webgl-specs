@@ -9,10 +9,12 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
+    "http-server": "^0.11.1",
     "jest": "^22.4.4",
     "puppeteer": "^1.4.0"
   },
   "scripts": {
-    "build": "babel -d lib index.js"
+    "build": "babel -d lib index.js",
+    "test": "jest"
   }
 }

@@ -2,8 +2,9 @@
   "presets": [
     ["env", {
       "targets": {
-        "chrome": "66"
-      }
+        "chrome": 66
+      },
+      "modules": "umd"
     }]
   ]
 }
