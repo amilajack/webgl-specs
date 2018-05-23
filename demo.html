@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style type="text/css">
+    .json-inspector__key,
+    .json-inspector__value {
+        position: relative;
+    }
+    .json-inspector__selection {
+        display: block;
+        position: absolute;
+        top: -1px;
+        left: -3px;
+        right: 0;
+        z-index: 1;
+        padding: 0 3px;
+        font: 1em/1 Consolas, monospace;
+        outline: none;
+        border: none;
+        opacity: 0;
+        box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.3);
+        color: #222;
+    }
+    .json-inspector__selection:focus {
+        opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="./test/demo.js"></script>
+</body>
+</html>

@@ -7,9 +7,13 @@
   <title>Document</title>
 </head>
 <body>
+  <div id="root"></div>
   <script type="module">
     import WebglSpecs from 'http://127.0.0.1:8080/index.js';
-    console.log(JSON.stringify(WebglSpecs()));
+    import demo from './demo.js';
+    const specs = WebglSpecs();
+    demo(specs);
+    console.log(JSON.stringify(specs));
   </script>
 </body>
 </html>

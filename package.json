@@ -6,9 +6,7 @@
   "repository": "git@github.com:amilajack/webgl-specs.git",
   "author": "Amila Welihinda <amilajack@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "static-server": "^2.2.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
@@ -22,7 +20,7 @@
   },
   "scripts": {
     "build": "babel -d lib index.js",
-    "dev": "http-server .",
+    "start": "parcel demo.html",
     "test": "jest"
   }
 }
