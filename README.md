@@ -1,5 +1,8 @@
 webgl-specs
 ===========
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/amilajack/webgl-specs.svg)](https://greenkeeper.io/)
+
 Detect the graphics specs of a device using web APIs
 
 ## Install
